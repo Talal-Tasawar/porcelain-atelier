@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { listProducts } from "@/lib/db";
+import { listProducts, toPublicProduct } from "@/lib/db";
 
 export const dynamic = "force-dynamic";
 export const fetchCache = "force-no-store";
@@ -10,5 +10,5 @@ export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const category = searchParams.get("category");
   const filtered = category && category !== "all" ? products.filter((p) => p.category === category) : products;
-  return NextResponse.json(filtered);
+  return NextResponse.json(filtered.map(toPublicProduct));
 }

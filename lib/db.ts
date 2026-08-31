@@ -68,6 +68,18 @@ export async function getProduct(id: string): Promise<Product | undefined> {
   return rows[0] ? toProduct(rows[0]) : undefined;
 }
 
+export async function getProductImage(id: string): Promise<string | undefined> {
+  await ensureTable();
+  const sql = getSql();
+  const rows = await sql`SELECT image FROM products WHERE id = ${id}`;
+  return rows[0]?.image;
+}
+
+/** Swaps the heavy base64 image payload for a lightweight, cacheable URL. */
+export function toPublicProduct(p: Product): Product {
+  return { ...p, image: `/api/images/${p.id}` };
+}
+
 export async function createProduct(input: Omit<Product, "id" | "createdAt">): Promise<Product> {
   await ensureTable();
   const sql = getSql();

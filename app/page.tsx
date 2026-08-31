@@ -2,13 +2,13 @@ import Hero from "@/components/Hero";
 import CategoryStrip from "@/components/CategoryStrip";
 import StorySection from "@/components/StorySection";
 import ProductCard from "@/components/ProductCard";
-import { listProducts } from "@/lib/db";
+import { listProducts, toPublicProduct } from "@/lib/db";
 import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
-  const all = await listProducts();
+  const all = (await listProducts()).map(toPublicProduct);
   const featured = all.filter((p) => p.featured).slice(0, 8);
   const fallback = featured.length > 0 ? featured : all.slice(0, 8);
 

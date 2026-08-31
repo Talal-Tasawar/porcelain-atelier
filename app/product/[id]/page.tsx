@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getProduct, listProducts } from "@/lib/db";
+import { getProduct, listProducts, toPublicProduct } from "@/lib/db";
 import { notFound } from "next/navigation";
 import ProductDetail from "@/components/ProductDetail";
 
@@ -35,7 +35,8 @@ export default async function ProductPage({ params }: { params: { id: string } }
   const all = await listProducts();
   const related = all
     .filter((p) => p.category === product.category && p.id !== product.id)
-    .slice(0, 4);
+    .slice(0, 4)
+    .map(toPublicProduct);
 
-  return <ProductDetail product={product} related={related} />;
+  return <ProductDetail product={toPublicProduct(product)} related={related} />;
 }
