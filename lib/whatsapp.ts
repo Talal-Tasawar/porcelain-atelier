@@ -9,7 +9,7 @@ export function buildWhatsAppOrderLink(lines: CartLine[]): string {
     .join("\n");
 
   const message = [
-    "Hello! I'd like to place an order from Porcelain Atelier:",
+    "Hello! I'd like to place an order from Cook & CO:",
     "",
     itemsText,
     "",

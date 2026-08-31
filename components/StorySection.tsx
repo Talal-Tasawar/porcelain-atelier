@@ -32,7 +32,7 @@ export default function StorySection() {
             Crockery chosen the way you'd choose it yourself
           </h2>
           <p className="mt-6 max-w-lg text-ink-500">
-            Porcelain Atelier began as a small collection for our own table — pieces we couldn't
+            Cook &amp; CO began as a small collection for our own table — pieces we couldn't
             find anywhere else. Today we bring that same eye to every home we deliver to.
           </p>
         </motion.div>

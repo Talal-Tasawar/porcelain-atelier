@@ -1,7 +1,3 @@
-"use client";
-
-import { motion } from "framer-motion";
-
 const CATEGORIES = [
   "Dinner Sets",
   "Tea & Coffee",
@@ -14,17 +10,15 @@ const CATEGORIES = [
 ];
 
 export default function CategoryStrip() {
-  const looped = [...CATEGORIES, ...CATEGORIES];
-
   return (
-    <section id="categories" className="overflow-hidden border-y border-ink-900/10 bg-ink-950 py-5">
-      <motion.div className="flex w-max gap-14 whitespace-nowrap animate-marquee">
-        {looped.map((cat, i) => (
-          <span key={i} className="font-display text-lg text-clay-100/70 tracking-wide">
+    <section id="categories" className="border-y border-ink-900/10 bg-ink-950 py-5">
+      <div className="mx-auto flex max-w-7xl flex-wrap justify-center gap-x-10 gap-y-3 px-6">
+        {CATEGORIES.map((cat) => (
+          <span key={cat} className="font-display text-lg tracking-wide text-clay-100/70">
             {cat}
           </span>
         ))}
-      </motion.div>
+      </div>
     </section>
   );
 }

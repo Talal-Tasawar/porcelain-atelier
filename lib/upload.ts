@@ -1,19 +1,16 @@
-import { put } from "@vercel/blob";
-import crypto from "node:crypto";
-
 const ALLOWED_TYPES: Record<string, string> = {
-  "image/jpeg": "jpg",
+  "image/jpeg": "jpeg",
   "image/png": "png",
   "image/webp": "webp",
 };
-const MAX_BYTES = 5 * 1024 * 1024; // 5MB
+const MAX_BYTES = 1.5 * 1024 * 1024; // 1.5MB — kept small since images are stored as base64 in the database
 
 export async function saveUploadedImage(file: File): Promise<{ ok: true; url: string } | { ok: false; error: string }> {
   if (!ALLOWED_TYPES[file.type]) {
     return { ok: false, error: "Only JPEG, PNG, or WebP images are allowed." };
   }
   if (file.size > MAX_BYTES) {
-    return { ok: false, error: "Image must be 5MB or smaller." };
+    return { ok: false, error: "Image must be 1.5MB or smaller." };
   }
 
   const buffer = Buffer.from(await file.arrayBuffer());
@@ -30,16 +27,6 @@ export async function saveUploadedImage(file: File): Promise<{ ok: true; url: st
     return { ok: false, error: "File content does not match its declared image type." };
   }
 
-  if (!process.env.BLOB_READ_WRITE_TOKEN) {
-    return { ok: false, error: "Image storage is not configured. Add a Blob store in your Vercel project." };
-  }
-
-  const ext = ALLOWED_TYPES[file.type];
-  const filename = `${crypto.randomUUID()}.${ext}`;
-  const blob = await put(`uploads/${filename}`, buffer, {
-    access: "public",
-    contentType: file.type,
-  });
-
-  return { ok: true, url: blob.url };
+  const dataUrl = `data:${file.type};base64,${buffer.toString("base64")}`;
+  return { ok: true, url: dataUrl };
 }

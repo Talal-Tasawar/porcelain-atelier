@@ -16,7 +16,7 @@ const body = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Porcelain Atelier — Fine Crockery & Tableware",
+  title: "Cook & CO — Fine Crockery & Tableware",
   description:
     "Handpicked porcelain, stoneware, and glassware for tables that tell a story. Order directly on WhatsApp — no account needed.",
 };

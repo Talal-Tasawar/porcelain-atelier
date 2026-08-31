@@ -51,7 +51,7 @@ export default function Hero() {
             Explore the Shop
           </Link>
           <Link
-            href="/#story"
+            href="/about"
             className="rounded-full border border-ink-900/15 px-8 py-3.5 text-sm uppercase tracking-widest text-ink-700 transition hover:border-clay-500"
           >
             Our Story
